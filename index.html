@@ -1,23 +1,322 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+  <style>
+    /* 기본 스타일 */
+    body { font-family: 'Noto Sans KR', sans-serif; line-height: 1.8; margin: 0; padding: 0; background: #f0f8ff; color: #333; }
+    header { background: #004aad; color: #fff; text-align: center; padding: 40px 15px; border-radius: 0 0 15px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    header h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; }
+    header p { font-size: 1.1rem; opacity: 0.9; }
+    section { max-width: 900px; margin: 30px auto; padding: 30px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    h2 { color: #004aad; border-bottom: 2px solid #e0eaff; padding-bottom: 10px; margin-top: 0; font-size: 1.8rem; font-weight: 700; }
+    h3 { color: #3a5b9b; margin-top: 25px; font-size: 1.4rem; font-weight: 600; }
+    ul, ol { padding-left: 20px; line-height: 1.8; }
+    ul li, ol li { margin-bottom: 8px; }
+    p { margin-bottom: 15px; font-size: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background: #e0eaff; color: #004aad; font-weight: 600; text-align: center; }
+    td.highlight { background: #fff9e6; font-weight: 700; color: #d63300; }
+    a { color: #0070f3; text-decoration: none; transition: color 0.3s; }
+    a:hover { text-decoration: underline; color: #005bb5; }
+    /* CTA 버튼 */
+    .btn-cta {
+      display: inline-block;
+      padding: 15px 30px;
+      background: #ff7f00; /* 주황색 계열로 변경 */
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(255, 127, 0, 0.4);
+      transition: background-color 0.3s ease, transform 0.2s;
+      text-align: center;
+      margin-top: 20px;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-cta:hover { background: #e66f00; transform: translateY(-2px); }
+    .btn-container { text-align: center; margin-bottom: 30px; }
+    /* 네비게이션 스타일 */
+    nav { max-width: 900px; margin: 20px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 15px; }
+    nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: space-around; }
+    nav li { margin: 8px 10px; }
+    nav a { display: block; padding: 10px 15px; background: #f4f7fa; border-radius: 20px; font-weight: 500; color: #333; transition: background-color 0.3s; }
+    nav a:hover { background: #e0eaff; color: #004aad; text-decoration: none; }
+    /* 폼 스타일 */
+    form { background: #f9f9f9; padding: 25px; border-radius: 10px; border: 1px solid #eee; }
+    form label { display: block; font-weight: 600; margin-bottom: 5px; color: #3a5b9b; }
+    form input[type="text"], form input[type="tel"], form select, form textarea {
+      width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 1rem; transition: border-color 0.3s; }
+    form input[type="checkbox"] { margin-right: 8px; }
+    form input:focus, form textarea:focus { border-color: #0070f3; outline: none; box-shadow: 0 0 5px rgba(0, 112, 243, 0.2); }
+    /* 그래프 및 시각화 요소 */
+    .visual-container { background: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+    .visual-container h3 { margin-top: 0; color: #004aad; }
+    /* 반응형 */
+    @media(max-width: 768px) {
+      header h1 { font-size: 2rem; }
+      nav ul { flex-direction: column; }
+      nav li { margin: 5px 0; width: 100%; }
+      nav a { text-align: center; padding: 12px 0; }
+      section { margin: 15px auto; padding: 20px; }
+      .btn-cta { width: 100%; padding: 15px 0; }
+    }
+  </style>
+
+  <!-- Schema.org Article MarkUp (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://도메인/실비보험료인상"
+    },
+    "headline": "실비보험료 인상: 2026년 전망과 절약 방법 A to Z",
+    "description": "2026년 실비보험료 인상 원인 분석 및 4세대 실비보험 전환 가이드. 보험료 절약을 위한 실질적인 방법을 제시합니다.",
+    "image": "https://도메인/insurance-graph.png",
+    "datePublished": "2026-01-01T00:00:00+09:00",
+    "dateModified": "2026-01-01T00:00:00+09:00",
+    "author": {
+      "@type": "Organization",
+      "name": "실비보험 분석 센터"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "실비보험 분석 센터",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://도메인/logo.png"
+      }
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>실비보험료 인상, 더 이상 피할 수 없다면?</h1>
+    <p>2026년 실비보험료 갱신 폭탄, 현명하게 대처하는 A to Z 가이드</p>
+    <div class="btn-container">
+        <button class="btn-cta" onclick="location.href='#consultation'">2026년 보험료 절약 방안 상담하기</button>
+    </div>
+  </header>
+
+  <nav aria-label="페이지 내 이동">
+    <ul>
+      <li><a href="#intro">실비보험 인상 현황</a></li>
+      <li><a href="#reasons">인상 원인 분석</a></li>
+      <li><a href="#comparison">세대별 비교 및 전환</a></li>
+      <li><a href="#savings">절약 노하우</a></li>
+      <li><a href="#checklist">필수 체크리스트</a></li>
+      <li><a href="#consultation">전문가 무료 상담</a></li>
+    </ul>
+  </nav>
+
+  <section id="intro">
+    <span id="intro-anchor" class="anchor"></span>
+    <h2>1. 2026년 실비보험료 인상 현황 및 전망</h2>
+    <p>실비보험(실손의료보험)은 대한민국 국민의 절반 이상이 가입한 ‘제2의 건강보험’으로 불립니다. 하지만 매년 갱신 시기가 되면 큰 폭의 보험료 인상으로 인해 많은 가입자들이 부담을 호소하고 있습니다. 특히 2026년은 장기간 누적된 보험금 지급액 증가로 인해 보험료 인상 폭이 더욱 커질 것이라는 전망이 지배적입니다. 보험료 인상에 대한 막연한 불안감을 해소하고 합리적인 선택을 하기 위해서는 정확한 현황 파악이 필수입니다.</p>
+
+    <h3>1-1. 2026년 실비보험료 예상 인상률</h3>
+    <p>최근 몇 년간 실비보험료는 평균 10~15% 수준으로 꾸준히 인상되어 왔습니다. 특히 갱신 주기가 3년인 상품의 경우, 갱신 시점에 이전 3년간의 손해율을 한 번에 반영하기 때문에 20% 이상의 인상률이 적용되는 경우도 흔합니다. 보험업계 전문가들은 2026년에도 이러한 추세가 이어지거나, 혹은 손해율 악화에 따라 인상률이 더욱 높아질 수 있다고 예측합니다. 이는 고령화로 인한 의료 이용량 증가와 비급여 항목의 무분별한 사용 증가가 주된 원인으로 꼽힙니다.</p>
+
+    <h3>1-2. 실비보험 인상 관련 주요 키워드 분석</h3>
+    <p>실비보험료 인상과 관련하여 많은 사람들이 궁금해하는 키워드들을 분석했습니다. 이들 키워드는 인상에 대한 불안감과 더불어 해결책을 찾고자 하는 가입자들의 심리를 반영합니다.</p>
+    <ul>
+      <li><strong>실비보험료 인상률:</strong> 매년 갱신 시점에 가장 중요한 관심사입니다.</li>
+      <li><strong>4세대 실비보험 전환:</strong> 인상 부담을 줄이기 위한 주요 대안으로 언급됩니다.</li>
+      <li><strong>실비보험 재가입:</strong> 기존 상품의 인상률이 너무 높아 새로운 상품 가입을 고려하는 경우입니다.</li>
+      <li><strong>비급여 항목 통제:</strong> 보험료 인상의 핵심 원인인 비급여 항목 관리에 대한 관심입니다.</li>
+    </ul>
+
+    <div class="visual-container">
+      <h3>실비보험료 인상률 추이 (2020-2026 예상)</h3>
+      <p>실제 데이터를 기반으로 한 추이를 시각화하여 보여줍니다. (가상의 데이터로 작성됨)</p>
+      <img src="https://via.placeholder.com/600x300?text=실비보험료+인상률+추이+그래프" alt="실비보험료 인상률 추이" style="width: 100%; height: auto; border-radius: 8px;">
+      <p><em>출처: 보험개발원, 금융감독원 자료 재구성 (2026년은 예상치)</em></p>
+    </div>
+  </section>
+
+  <section id="reasons">
+    <span id="reasons-anchor" class="anchor"></span>
+    <h2>2. 실비보험료 인상 주요 원인 분석: 왜 계속 오르는가?</h2>
+    <p>실비보험료가 인상되는 근본적인 원인을 이해하는 것은 합리적인 대처 방안을 마련하는 첫걸음입니다. 인상 요인은 크게 의료 환경 변화, 보험사 손해율 악화, 그리고 가입자 행태 변화 세 가지로 나눌 수 있습니다.</p>
+
+    <h3>2-1. 고령화 및 의료수가 증가</h3>
+    <p>인구 고령화는 실비보험료 인상의 가장 구조적인 원인입니다. 평균 수명이 증가하면서 노년층 인구가 늘어나고, 이에 따라 의료기관 이용 빈도와 중증 질환 발생률이 증가합니다. 보험사는 지급해야 할 보험금이 늘어날 수밖에 없으며, 이는 결국 전체 가입자의 보험료 인상으로 이어집니다. 또한, 매년 정부가 결정하는 의료수가(진료비) 자체가 인상되는 것도 보험료 상승의 직접적인 요인입니다.</p>
+
+    <h3>2-2. 비급여 항목의 무분별한 사용</h3>
+    <p>실비보험은 국민건강보험이 보장하지 않는 비급여 항목까지 보장한다는 장점 때문에 인기가 높습니다. 그러나 일부 비급여 항목(도수치료, MRI, 백내장 수술 등)에 대한 과도한 청구 및 의료 쇼핑 행태가 보험사의 손해율을 급격히 악화시키고 있습니다. 특히 비급여 항목은 가격 통제가 어려워 병원마다 가격 차이가 크고, 이로 인해 불필요한 고가 치료를 유도하는 병원도 존재하여 손해율을 높입니다.</p>
+    <ul>
+      <li><strong>도수치료:</strong> 잦은 청구로 손해율을 높이는 대표적인 비급여 항목입니다.</li>
+      <li><strong>백내장 수술:</strong> 특정 시기에 집중적인 수술 청구가 발생하여 보험사 손해율에 큰 영향을 미쳤습니다.</li>
+      <li><strong>MRI/MRA:</strong> 뇌혈관 질환 진단에 필수적이지만, 필요 없는 검사까지 청구되는 경우가 있습니다.</li>
+    </ul>
+
+    <h3>2-3. 보험료 갱신 주기와 손해율 반영</h3>
+    <p>실비보험은 갱신형 상품이므로 가입 시점에 보험료가 확정되는 것이 아닙니다. 갱신 시점(보통 1년 또는 3년)에 보험사의 손해율을 반영하여 보험료가 조정됩니다. 만약 가입자가 병원을 많이 이용하거나, 해당 세대의 전체 손해율이 높았다면 갱신 시점에 보험료가 대폭 인상될 수밖에 없습니다. 특히 갱신형 보험은 나이가 들수록 위험률이 높아지므로, 가입 기간이 길어질수록 보험료 인상 폭이 커지는 특징이 있습니다.</p>
+  </section>
+
+  <section id="comparison">
+    <span id="comparison-anchor" class="anchor"></span>
+    <h2>3. 4세대 실비보험 전환: 인상 부담 줄이는 현명한 선택인가?</h2>
+    <p>실비보험료 인상에 대한 가장 현실적인 대안으로 '4세대 실비보험으로의 전환'이 제시되고 있습니다. 2021년 7월 출시된 4세대 실비보험은 기존 세대 상품에 비해 보험료가 저렴한 대신, 보장 내용과 자기부담금 구조에 변화가 있습니다. 무조건적인 전환이 정답은 아니므로 자신의 건강 상태와 의료 이용 습관에 따라 신중하게 판단해야 합니다.</p>
+
+    <h3>3-1. 1세대, 2세대, 3세대 실비보험 특징</h3>
+    <p>기존 세대 실비보험 가입자들은 상대적으로 넓은 보장 범위와 낮은 자기부담금을 누렸습니다. 특히 1세대 실비보험은 본인부담금이 거의 없고 입원/통원 치료비 전액을 보장하는 수준이었습니다. 이 때문에 손해율이 매우 높아졌으며, 보험사 입장에서는 갱신 시점에 보험료를 대폭 인상할 수밖에 없습니다.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>1세대 (2009년 이전)</th>
+          <th>2세대 (2009년~2017년)</th>
+          <th>3세대 (2017년~2021년)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>주요 특징</td>
+          <td>자기부담금 거의 없음, 보장 범위 넓음</td>
+          <td>자기부담금 10%~20% 도입, 보장 축소 시작</td>
+          <td>비급여 항목 분리 보장, 자기부담금 증가</td>
+        </tr>
+        <tr>
+          <td>보험료 수준</td>
+          <td>매우 높음</td>
+          <td>높음</td>
+          <td>보통</td>
+        </tr>
+        <tr>
+          <td>갱신 시 인상률</td>
+          <td class="highlight">높음</td>
+          <td>보통</td>
+          <td>보통</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3-2. 4세대 실비보험의 장점과 단점</h3>
+    <p>4세대 실비보험은 비급여 항목에 대한 자기부담금을 높이고, 비급여 보험료 차등제를 도입했습니다. 병원 이용을 적게 하는 가입자에게는 보험료 할인을 제공하고, 병원 이용이 많은 가입자에게는 보험료 할증을 적용하는 방식입니다. 이로 인해 보험료 부담이 상대적으로 낮아져 인상률을 어느 정도 억제할 수 있습니다.</p>
+    <ul>
+      <li><strong>장점:</strong> 초기 보험료가 저렴하고, 의료 이용을 적게 할 경우 보험료 할인 혜택을 받을 수 있습니다.</li>
+      <li><strong>단점:</strong> 비급여 치료 시 자기부담금 비율이 높습니다 (급여 20%, 비급여 30%). 기존 세대 상품 대비 보장이 축소되었습니다.</li>
+    </ul>
+    <p>따라서 평소 병원 이용이 거의 없고 건강한 사람이라면 4세대 전환을 고려해볼 만하지만, 만성 질환이 있거나 비급여 치료를 자주 받는 사람이라면 기존 상품을 유지하는 것이 유리할 수 있습니다.</p>
+  </section>
+
+  <section id="savings">
+    <span id="savings-anchor" class="anchor"></span>
+    <h2>4. 2026년 실비보험료 절약을 위한 실질적인 노하우</h2>
+    <p>보험료 인상을 무작정 받아들이기보다는, 자신의 상황에 맞는 절약 방안을 찾아야 합니다. 실비보험은 갱신 시기에 대처하는 방식에 따라 월 납입액이 크게 달라질 수 있습니다.</p>
+
+    <h3>4-1. 불필요한 보장 제외 및 중복 확인</h3>
+    <p>실비보험 외에 종신보험이나 정기보험에 가입할 때 실비 특약이 중복되어 포함된 경우가 있습니다. 실비보험은 이중으로 가입해도 중복 보상이 되지 않고 비례 보상만 가능하므로, 불필요한 중복 가입은 보험료 낭비입니다. 또한, 실비보험 가입 시 주계약 외의 불필요한 특약(운전자 특약, 골절 진단비 등)이 있는지 확인하고 삭제하는 것이 보험료 절감에 도움이 됩니다.</p>
+
+    <h3>4-2. 갱신 시점별 대처법: 갱신형 vs. 비갱신형</h3>
+    <p>실비보험은 기본적으로 갱신형 상품이지만, 일부 종신보험 등 다른 보험의 특약으로 비갱신형 실비가 존재하기도 합니다. 갱신형 실비보험은 갱신 시점에 보험료가 오르는 것이 일반적이므로, 보험사마다 다른 인상률을 비교해보고 필요에 따라 보험사를 변경하는 것도 방법입니다.</p>
+
+    <h3>4-3. 보험료 할인 제도 활용 (4세대 실비보험)</h3>
+    <p>4세대 실비보험은 1년간 비급여 항목 보험금을 청구하지 않은 가입자에게 다음 해 보험료의 5~10%를 할인해주는 혜택이 있습니다. 반면, 비급여 보험금 청구액이 많으면 갱신 시점에 보험료가 할증될 수 있습니다. 평소 비급여 치료를 거의 받지 않는다면 4세대 전환을 통해 보험료 절감 효과를 볼 수 있습니다.</p>
+
+    <div class="visual-container">
+      <h3>세대별 보험료 절약 방안 비교</h3>
+      <p>가입 시기별로 적용할 수 있는 절약 전략이 다릅니다.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>가입 세대</th>
+            <th>추천 절약 전략</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1세대 실비보험</td>
+            <td>4세대 실비보험 전환 적극 검토, 불필요 특약 정리</td>
+          </tr>
+          <tr>
+            <td>2세대/3세대 실비보험</td>
+            <td>4세대 전환 시 자기부담금 증액 여부 확인, 보험사별 인상률 비교</td>
+          </tr>
+          <tr>
+            <td>4세대 실비보험</td>
+            <td>비급여 의료 이용 최소화로 보험료 할인 혜택 누리기</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>참고: 함께 많이 찾는 키워드</strong></p>
+    <ul>
+      <li>실비보험료 인상률 계산</li>
+      <li>실비보험 갱신 시 해지 여부</li>
+      <li>4세대 실비보험 청구 방법</li>
+      <li>실비보험료 자동이체 할인</li>
+    </ul>
+  </section>
+
+  <section id="checklist">
+    <span id="checklist-anchor" class="anchor"></span>
+    <h2>5. 보험료 갱신 전 필수 체크리스트</h2>
+    <p>보험료 갱신 통지서를 받기 전에 미리 준비해야 할 사항들입니다. 갱신 시기가 임박해서 대처하기보다, 미리미리 점검하여 보험료 인상에 대한 부담을 최소화해야 합니다.</p>
+    <ol>
+      <li><strong>나의 실비보험 가입 시점 확인:</strong> 내가 가입한 상품이 몇 세대 실비보험인지 확인합니다. (1세대, 2세대, 3세대, 4세대)</li>
+      <li><strong>최근 2년간 의료 이용 기록 확인:</strong> 비급여 치료를 얼마나 이용했는지 점검합니다. 4세대 전환 시 할증 대상인지 판단 기준이 됩니다.</li>
+      <li><strong>보험사별 인상률 비교:</strong> 동일한 세대의 실비보험이라도 보험사별 인상률이 다를 수 있습니다. 다른 보험사 상품과 비교견적을 받아봅니다.</li>
+      <li><strong>다른 보험 가입 여부 확인:</strong> 내가 가입한 다른 보험(종신보험 등)에 실비 특약이 중복되어 있는지 확인합니다.</li>
+      <li><strong>4세대 실비보험 전환 조건 점검:</strong> 전환 시 기존 상품의 보장이 축소되는 부분을 감수할 수 있는지 신중하게 판단합니다.</li>
+    </ol>
+  </section>
+
+  <section id="consultation">
+    <span id="contact-anchor" class="anchor"></span>
+    <h2>6. 2026년 실비보험료 절약 맞춤 상담 신청</h2>
+    <p>보험료 인상에 대한 막연한 불안감 대신, 전문가와 함께 자신의 상황을 분석하고 최적의 대안을 찾으세요. 나의 건강 상태, 보험 가입 이력, 2026년 예상 인상률 등을 종합적으로 고려한 맞춤형 컨설팅을 제공합니다.</p>
+    <form action="/submit" method="POST" style="max-width:600px; margin:auto;">
+      <h3>개인 맞춤 보험료 진단 신청</h3>
+      <label for="name">이름<span style="color:red;">*</span></label><br />
+      <input type="text" id="name" name="name" required placeholder="예: 홍길동" />
+
+      <label for="phone">연락처<span style="color:red;">*</span></label><br />
+      <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678" pattern="[0-9\-]+" />
+
+      <label for="birthdate">생년월일 (예: 19800101)</label><br />
+      <input type="text" id="birthdate" name="birthdate" placeholder="8자리 숫자로 입력" pattern="\d{8}" />
+
+      <label for="move-type">현재 가입한 실비보험 세대<span style="color:red;">*</span></label><br />
+      <select id="move-type" name="move_type" required>
+        <option value="">선택하세요</option>
+        <option value="1세대">1세대 (2009년 이전)</option>
+        <option value="2세대">2세대 (2009년~2017년)</option>
+        <option value="3세대">3세대 (2017년~2021년)</option>
+        <option value="4세대">4세대 (2021년 7월 이후)</option>
+        <option value="모름">모름</option>
+      </select>
+
+      <label for="medical-history">최근 2년간 주요 의료기관 이용 이력 (비급여 청구 여부)<span style="color:red;">*</span></label><br />
+      <textarea id="medical-history" name="medical_history" rows="3" required placeholder="예: 도수치료, 백내장 수술, MRI 등 청구 이력 유무"></textarea>
+
+      <label for="consent"><input type="checkbox" id="consent" name="consent" required> 개인정보 수집 및 이용 동의 (필수)</label><br />
+
+      <button type="submit" class="btn-cta">맞춤 상담 신청하기</button>
+    </form>
+  </section>
+
+  <section id="external-links">
+    <h2>참고: 신뢰할 수 있는 외부 정보 출처</h2>
+    <p>실비보험료 인상 및 정책 관련 정확한 정보를 확인하기 위한 공신력 있는 외부 사이트 목록입니다. (참고: 실제 링크는 해당 기관의 공식 도메인으로 대체해야 합니다)</p>
+    <ul>
+      <li><a href="https://www.fss.or.kr/" target="_blank">금융감독원 (FSS)</a>: 보험 정책 및 소비자 보호 관련 공식 자료 확인.</li>
+      <li><a href="https://www.kiri.or.kr/" target="_blank">보험연구원 (KIRI)</a>: 보험 시장 동향 및 통계 자료 확인.</li>
+      <li><a href="https://namu.wiki/w/실손의료보험" target="_blank">나무위키 - 실손의료보험</a>: 실손보험 세대별 특징 및 역사 등 개괄적인 정보 확인.</li>
+      <li><a href="http://www.korea.kr/" target="_blank">대한민국 정책브리핑</a>: 정부의 의료 정책 방향 및 건강보험 관련 보도자료 확인.</li>
+      <li><a href="https://www.nhis.or.kr/" target="_blank">국민건강보험공단</a>: 건강보험 보장성 강화 정책 및 급여 항목 정보 확인.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© 2026 실비보험료 인상 분석 사이트. 모든 정보는 참고용이며, 정확한 내용은 전문가 상담을 통해 확인하시기 바랍니다.</p>
+    <p>연락처: <a href="tel:0311234567">031-123-4567</a> | 이메일: <a href="mailto:help@domain.com">help@domain.com</a></p>
+  </footer>
+
+
+  
